@@ -1,0 +1,36 @@
+name: chess
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.1.5 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.9
+  provider: ^6.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  riverpod_generator: ^2.3.5
+  riverpod_lint: ^2.3.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/pieces/wK.svg
+    - assets/pieces/wQ.svg
+    - assets/pieces/wB.svg
+    - assets/pieces/wN.svg
+    - assets/pieces/wR.svg
+    - assets/pieces/wP.svg
+    - assets/pieces/bK.svg
+    - assets/pieces/bQ.svg
+    - assets/pieces/bB.svg
+    - assets/pieces/bN.svg
+    - assets/pieces/bR.svg
+    - assets/pieces/bP.svg

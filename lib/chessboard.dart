@@ -35,8 +35,9 @@ class Chessboard extends StatelessWidget {
                     (i + 1).toString(),
                     style: TextStyle(
                         fontSize: 10,
-                        color:
-                            isWhite ? const Color(0xFF8DB55F) : Colors.white),
+                        color: isWhite
+                            ? const Color.fromARGB(255, 131, 162, 180)
+                            : Colors.white),
                   ),
                 if (i == 7)
                   Container(
@@ -45,7 +46,9 @@ class Chessboard extends StatelessWidget {
                       letters[j],
                       style: TextStyle(
                         fontSize: 10,
-                        color: isWhite ? const Color(0xFF8DB55F) : Colors.white,
+                        color: isWhite
+                            ? const Color.fromARGB(255, 131, 162, 180)
+                            : Colors.white,
                       ),
                     ),
                   ),

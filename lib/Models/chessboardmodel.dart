@@ -9,34 +9,55 @@ import 'package:chess/pieces/rook.dart';
 
 class ChessboardModel with ChangeNotifier {
   List<List<String>> layout = [
-    ['bR', 'bN', 'bB', 'bK', 'bQ', 'bB', 'bN', 'bR'],
-    ['bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP'],
+    ['bR1', 'bN1', 'bB1', 'bK', 'bQ', 'bB2', 'bN2', 'bR2'],
+    ['bP1', 'bP2', 'bP3', 'bP4', 'bP5', 'bP6', 'bP7', 'bP8'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
-    ['wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP'],
-    ['wR', 'wN', 'wB', 'wK', 'wQ', 'wB', 'wN', 'wR'],
+    ['wP1', 'wP2', 'wP3', 'wP4', 'wP5', 'wP6', 'wP7', 'wP8'],
+    ['wR1', 'wN1', 'wB1', 'wK', 'wQ', 'wB2', 'wN2', 'wR2'],
   ];
 
   final Map<String, Piece> pieces = {
-    "bR": const Rook(color: "black"),
-    "bN": const Knight(color: "black"),
-    "bB": const Bishop(color: "black"),
+    "bR1": const Rook(color: "black"),
+    "bN1": const Knight(color: "black"),
+    "bB1": const Bishop(color: "black"),
+    "bR2": const Rook(color: "black"),
+    "bN2": const Knight(color: "black"),
+    "bB2": const Bishop(color: "black"),
     "bQ": const Queen(color: "black"),
     "bK": const King(color: "black"),
-    "bP": Pawn(color: "black"),
-    "wR": const Rook(color: "white"),
-    "wN": const Knight(color: "white"),
-    "wB": const Bishop(color: "white"),
+    "bP1": Pawn(color: "black"),
+    "bP2": Pawn(color: "black"),
+    "bP3": Pawn(color: "black"),
+    "bP4": Pawn(color: "black"),
+    "bP5": Pawn(color: "black"),
+    "bP6": Pawn(color: "black"),
+    "bP7": Pawn(color: "black"),
+    "bP8": Pawn(color: "black"),
+    "wR1": const Rook(color: "white"),
+    "wN1": const Knight(color: "white"),
+    "wB1": const Bishop(color: "white"),
+    "wR2": const Rook(color: "white"),
+    "wN2": const Knight(color: "white"),
+    "wB2": const Bishop(color: "white"),
     "wQ": const Queen(color: "white"),
     "wK": const King(color: "white"),
-    "wP": Pawn(color: "white"),
+    "wP1": Pawn(color: "white"),
+    "wP2": Pawn(color: "white"),
+    "wP3": Pawn(color: "white"),
+    "wP4": Pawn(color: "white"),
+    "wP5": Pawn(color: "white"),
+    "wP6": Pawn(color: "white"),
+    "wP7": Pawn(color: "white"),
+    "wP8": Pawn(color: "white"),
   };
 
   bool isSecondTap = false;
   List<int> firstTapLocation = [];
 
+  //Save the first tap location. Then, isSecondTap
   void firstTap(int x, int y) {
     if (layout[x][y] != "00") {
       isSecondTap = true;
@@ -45,6 +66,7 @@ class ChessboardModel with ChangeNotifier {
     notifyListeners();
   }
 
+  //Receve the "from" and "to" location. Then, move the piece if canMove()
   void movePiece(int fromX, int fromY, int toX, int toY) {
     String movedPiece = layout[fromX][fromY];
 

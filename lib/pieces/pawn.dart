@@ -2,11 +2,12 @@ import 'package:chess/pieces/piece.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: must_be_immutable
 class Pawn extends StatelessWidget with Piece {
   final String color;
-  bool isFirstMove;
+  bool isFirstMove = true;
 
-  Pawn({super.key, required this.color}) : isFirstMove = true;
+  Pawn({super.key, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class Pawn extends StatelessWidget with Piece {
 
     if (color == "white") {
       if (isFirstMove) {
-        if (movX == 0 && movY == -2) {
+        if (movX == 0 && (movY == -2 || movY == -1)) {
           isFirstMove = false;
           return true;
         }

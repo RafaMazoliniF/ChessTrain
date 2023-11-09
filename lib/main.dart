@@ -1,11 +1,12 @@
+import 'package:chess/Models/chessboardmodel.dart';
 import 'package:chess/chessboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const ProviderScope(
-    child: MainApp(),
-  ));
+  runApp(
+    const MainApp(),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -17,14 +18,23 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF070926),
-          title: const Center(child: Text("Chess")),
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Chess Train"),
+              Icon(Icons.train),
+            ],
+          ),
         ),
         body: Stack(
           children: [
             Container(
               color: const Color.fromARGB(230, 7, 9, 38),
             ),
-            const Chessboard(),
+            ChangeNotifierProvider(
+              create: (context) => ChessboardModel(),
+              child: const Chessboard(),
+            ),
           ],
         ),
       ),

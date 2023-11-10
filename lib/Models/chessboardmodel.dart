@@ -58,28 +58,29 @@ class ChessboardModel with ChangeNotifier {
   List<int> firstTapLocation = [];
 
   //Save the first tap location. Then, isSecondTap
-  void firstTap(int x, int y) {
-    if (layout[x][y] != "00") {
+  void firstTap(int i, int j) {
+    if (layout[i][j] != "00") {
       isSecondTap = true;
-      firstTapLocation = [x, y];
+      firstTapLocation = [i, j];
     }
     notifyListeners();
   }
 
   //Receve the "from" and "to" location. Then, move the piece if canMove()
-  void movePiece(int fromX, int fromY, int toX, int toY) {
-    String movedPiece = layout[fromX][fromY];
+  void movePiece(int i1, int j1, int i2, int j2) {
+    String movedPiece = layout[i1][j1];
 
     Piece? piece = pieces[movedPiece];
     if (piece == null) {
       return;
     } else {
-      if (piece.canMove(fromX, fromY, toX, toY)) {
-        layout[fromX][fromY] = "00";
-        layout[toX][toY] = movedPiece;
+      if (piece.canMove(i1, j1, i2, j2, layout)) {
+        layout[i1][j1] = "00";
+        layout[i2][j2] = movedPiece;
       }
 
       isSecondTap = false;
+
       notifyListeners();
     }
   }

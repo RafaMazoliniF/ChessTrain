@@ -1,3 +1,4 @@
+import 'package:chess/Models/chessboardmodel.dart';
 import 'package:chess/pieces/piece.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +16,8 @@ class Knight extends StatelessWidget with Piece {
   }
 
   @override
-  bool canMove(int fromX, int fromY, int toX, int toY) {
+  bool canMove(
+      int fromX, int fromY, int toX, int toY, List<List<String>> layout) {
     return false;
   }
 }

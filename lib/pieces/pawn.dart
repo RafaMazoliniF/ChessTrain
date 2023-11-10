@@ -1,6 +1,8 @@
+import 'package:chess/Models/chessboardmodel.dart';
 import 'package:chess/pieces/piece.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:collection/collection.dart';
 
 // ignore: must_be_immutable
 class Pawn extends StatelessWidget with Piece {
@@ -17,23 +19,42 @@ class Pawn extends StatelessWidget with Piece {
   }
 
   @override
-  bool canMove(int fromX, int fromY, int toX, int toY) {
-    int movX = toY - fromY;
-    int movY = toX - fromX;
-
+  //Receves the "from" position, the "to" position and the current layout
+  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout) {
+    List<List<int>> movePossibilities = [];
     if (color == "white") {
-      if (isFirstMove) {
-        if (movX == 0 && (movY == -2 || movY == -1)) {
-          isFirstMove = false;
-          return true;
-        }
-      } else {
-        if (movX == 0 && movY == -1) {
-          return true;
+      //Define move possibilities
+      isFirstMove
+          ? movePossibilities = [
+              [i1 - 1, j1],
+              [i1 - 2, j1]
+            ]
+          : movePossibilities = [
+              [i1 - 1, j1]
+            ];
+
+      //Check if is in move possibilities
+      if (!movePossibilities
+          .any((element) => const ListEquality().equals(element, [i2, j2]))) {
+        return false;
+      }
+
+      for (var possibilty in movePossibilities) {
+        //is the target of the move
+        if (possibilty[0] == i2 && possibilty[1] == j2) {
+          //if the target is white
+          if (layout[i2][j2][0] == "w") {
+            return false;
+          }
+        } else {
+          if (layout[possibilty[0]][possibilty[1]] != "00") {
+            return false;
+          }
         }
       }
     }
 
-    return false;
+    isFirstMove = false;
+    return true;
   }
 }

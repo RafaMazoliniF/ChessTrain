@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:chess/Models/chessboardmodel.dart';
 import 'package:chess/pieces/piece.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,12 +17,12 @@ class Bishop extends StatelessWidget with Piece {
   }
 
   @override
-  bool canMove(int fromX, int fromY, int toX, int toY) {
-    int movX = toY - fromY;
-    int movY = toX - fromX;
+  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout) {
+    int movJ = j2 - j1;
+    int movI = i2 - i1;
 
     if (color == "white") {
-      if (pow(movX, 2) == pow(movY, 2)) {
+      if (pow(movJ, 2) == pow(movI, 2)) {
         return true;
       }
     }

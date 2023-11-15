@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:collection/collection.dart';
 
 class Knight extends StatelessWidget with Piece {
+  @override
   final String color;
 
   const Knight({super.key, required this.color});
@@ -41,16 +42,5 @@ class Knight extends StatelessWidget with Piece {
     }
 
     return true;
-  }
-
-  bool isWithinBounds(List<int> position) {
-    return position[0] >= 0 &&
-        position[0] < 8 &&
-        position[1] >= 0 &&
-        position[1] < 8;
-  }
-
-  bool isFriend(List<int> position, List<List<String>> layout) {
-    return layout[position[0]][position[1]][0] == color[0];
   }
 }

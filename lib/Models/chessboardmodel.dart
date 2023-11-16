@@ -7,7 +7,9 @@ import 'package:chess/pieces/pawn.dart';
 import 'package:chess/pieces/queen.dart';
 import 'package:chess/pieces/rook.dart';
 
+// The model of the chessboard.
 class ChessboardModel with ChangeNotifier {
+  //The game configuration. It is uptated at each move.
   List<List<String>> layout = [
     ['bR1', 'bN1', 'bB1', 'bK', 'bQ', 'bB2', 'bN2', 'bR2'],
     ['bP1', 'bP2', 'bP3', 'bP4', 'bP5', 'bP6', 'bP7', 'bP8'],
@@ -19,6 +21,7 @@ class ChessboardModel with ChangeNotifier {
     ['wR1', 'wN1', 'wB1', 'wK', 'wQ', 'wB2', 'wN2', 'wR2'],
   ];
 
+  //The layout -> pieces translator.
   final Map<String, Piece> pieces = {
     "bR1": const Rook(color: "black"),
     "bN1": const Knight(color: "black"),
@@ -26,7 +29,7 @@ class ChessboardModel with ChangeNotifier {
     "bR2": const Rook(color: "black"),
     "bN2": const Knight(color: "black"),
     "bB2": const Bishop(color: "black"),
-    "bQ": const Queen(color: "black"),
+    "bQ": Queen(color: "black"),
     "bK": King(color: "black"),
     "bP1": Pawn(color: "black"),
     "bP2": Pawn(color: "black"),
@@ -42,7 +45,7 @@ class ChessboardModel with ChangeNotifier {
     "wR2": const Rook(color: "white"),
     "wN2": const Knight(color: "white"),
     "wB2": const Bishop(color: "white"),
-    "wQ": const Queen(color: "white"),
+    "wQ": Queen(color: "white"),
     "wK": King(color: "white"),
     "wP1": Pawn(color: "white"),
     "wP2": Pawn(color: "white"),
@@ -54,6 +57,7 @@ class ChessboardModel with ChangeNotifier {
     "wP8": Pawn(color: "white"),
   };
 
+  //Move handler
   bool isSecondTap = false;
   List<int> firstTapLocation = [];
 

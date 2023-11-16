@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 
 // ignore: must_be_immutable
 class Pawn extends StatelessWidget with Piece {
+  @override
   final String color;
   bool isFirstMove = true;
 

@@ -11,14 +11,14 @@ import 'package:chess/pieces/rook.dart';
 class ChessboardModel with ChangeNotifier {
   //The game configuration. It is uptated at each move.
   List<List<String>> layout = [
-    ['bR1', 'bN1', 'bB1', 'bK', 'bQ', 'bB2', 'bN2', 'bR2'],
+    ['bR1', 'bN1', 'bB1', 'bQ', 'bK', 'bB2', 'bN2', 'bR2'],
     ['bP1', 'bP2', 'bP3', 'bP4', 'bP5', 'bP6', 'bP7', 'bP8'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
     ['00', '00', '00', '00', '00', '00', '00', '00'],
     ['wP1', 'wP2', 'wP3', 'wP4', 'wP5', 'wP6', 'wP7', 'wP8'],
-    ['wR1', 'wN1', 'wB1', 'wK', 'wQ', 'wB2', 'wN2', 'wR2'],
+    ['wR1', 'wN1', 'wB1', 'wQ', 'wK', 'wB2', 'wN2', 'wR2'],
   ];
 
   //The layout -> pieces translator.

@@ -13,7 +13,7 @@ class Chessboard extends StatelessWidget {
     List<Widget> squares = [];
 
     //Alternate colors
-    var isWhite = false;
+    var isWhite = true;
     for (var i = 0; i < 8; i++) {
       for (var j = 0; j < 8; j++) {
         //Gesture detection

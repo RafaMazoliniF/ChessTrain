@@ -23,9 +23,15 @@ class Queen extends StatelessWidget with Piece {
   }
 
   @override
-  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout) {
-    if (bishop.canMove(i1, j1, i2, j2, layout) ||
-        rook.canMove(i1, j1, i2, j2, layout)) {
+  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout,
+      bool isWhitesTurn) {
+    if ((color == "white" && !isWhitesTurn) ||
+        (color == "black" && isWhitesTurn)) {
+      return false;
+    }
+
+    if (bishop.canMove(i1, j1, i2, j2, layout, isWhitesTurn) ||
+        rook.canMove(i1, j1, i2, j2, layout, isWhitesTurn)) {
       return true;
     }
 

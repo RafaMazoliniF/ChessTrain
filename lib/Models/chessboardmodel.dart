@@ -58,6 +58,7 @@ class ChessboardModel with ChangeNotifier {
   };
 
   //Move handler
+  bool isWhitesTurn = true;
   bool isSecondTap = false;
   List<int> firstTapLocation = [];
 
@@ -78,9 +79,10 @@ class ChessboardModel with ChangeNotifier {
     if (piece == null) {
       return;
     } else {
-      if (piece.canMove(i1, j1, i2, j2, layout)) {
+      if (piece.canMove(i1, j1, i2, j2, layout, isWhitesTurn)) {
         layout[i1][j1] = "00";
         layout[i2][j2] = movedPiece;
+        isWhitesTurn = !isWhitesTurn;
       }
 
       isSecondTap = false;

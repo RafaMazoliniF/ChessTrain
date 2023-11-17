@@ -20,7 +20,13 @@ class Pawn extends StatelessWidget with Piece {
 
   @override
   //Receves the "from" position, the "to" position and the current layout
-  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout) {
+  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout,
+      bool isWhitesTurn) {
+    if ((color == "white" && !isWhitesTurn) ||
+        (color == "black" && isWhitesTurn)) {
+      return false;
+    }
+
     List<List<int>> movePossibilities = [];
 
     //Whites

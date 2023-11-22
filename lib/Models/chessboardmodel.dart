@@ -23,12 +23,12 @@ class ChessboardModel with ChangeNotifier {
 
   //The layout -> pieces translator.
   final Map<String, Piece> pieces = {
-    "bR1": const Rook(color: "black"),
-    "bN1": const Knight(color: "black"),
-    "bB1": const Bishop(color: "black"),
-    "bR2": const Rook(color: "black"),
-    "bN2": const Knight(color: "black"),
-    "bB2": const Bishop(color: "black"),
+    "bR1": Rook(color: "black"),
+    "bN1": Knight(color: "black"),
+    "bB1": Bishop(color: "black"),
+    "bR2": Rook(color: "black"),
+    "bN2": Knight(color: "black"),
+    "bB2": Bishop(color: "black"),
     "bQ": Queen(color: "black"),
     "bK": King(color: "black"),
     "bP1": Pawn(color: "black"),
@@ -39,12 +39,12 @@ class ChessboardModel with ChangeNotifier {
     "bP6": Pawn(color: "black"),
     "bP7": Pawn(color: "black"),
     "bP8": Pawn(color: "black"),
-    "wR1": const Rook(color: "white"),
-    "wN1": const Knight(color: "white"),
-    "wB1": const Bishop(color: "white"),
-    "wR2": const Rook(color: "white"),
-    "wN2": const Knight(color: "white"),
-    "wB2": const Bishop(color: "white"),
+    "wR1": Rook(color: "white"),
+    "wN1": Knight(color: "white"),
+    "wB1": Bishop(color: "white"),
+    "wR2": Rook(color: "white"),
+    "wN2": Knight(color: "white"),
+    "wB2": Bishop(color: "white"),
     "wQ": Queen(color: "white"),
     "wK": King(color: "white"),
     "wP1": Pawn(color: "white"),
@@ -61,14 +61,21 @@ class ChessboardModel with ChangeNotifier {
   bool isWhitesTurn = true;
   bool isSecondTap = false;
   List<int> firstTapLocation = [];
+  List<List<int>> possibleMoves = [];
 
   //Save the first tap location. Then, isSecondTap
   void firstTap(int i, int j) {
     if (layout[i][j] != "00") {
       isSecondTap = true;
       firstTapLocation = [i, j];
+      handleMovePossibilites(i, j);
     }
     notifyListeners();
+  }
+
+  void handleMovePossibilites(int i, int j) {
+    pieces[layout[i][j]]!.setMovePossibilites(i, j, layout);
+    possibleMoves = pieces[layout[i][j]]!.movePossibilities;
   }
 
   //Receve the "from" and "to" location. Then, move the piece if canMove()
@@ -86,6 +93,7 @@ class ChessboardModel with ChangeNotifier {
       }
 
       isSecondTap = false;
+      possibleMoves = [];
 
       notifyListeners();
     }

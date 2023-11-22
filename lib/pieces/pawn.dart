@@ -8,14 +8,53 @@ class Pawn extends StatelessWidget with Piece {
   @override
   final String color;
   bool isFirstMove = true;
+  late int moveDirection;
 
   Pawn({super.key, required this.color});
 
   @override
   Widget build(BuildContext context) {
+    color == "white" ? moveDirection = -1 : moveDirection = 1;
+
     return color == "white"
         ? SvgPicture.asset('assets/pieces/wP.svg')
         : SvgPicture.asset('assets/pieces/bP.svg');
+  }
+
+  @override
+  void setMovePossibilites(int i, int j, List<List<String>> layout) {
+    List<List<int>> movePossibilitiesAux = [];
+
+    //Move to empity squares
+    if (layout[i + moveDirection][j] == "00") {
+      movePossibilitiesAux.add([i + moveDirection, j]);
+
+      if (isFirstMove && layout[i + 2 * moveDirection][j] == "00") {
+        movePossibilitiesAux.add([i + 2 * moveDirection, j]);
+      }
+    }
+
+    //Capture enemies
+    if (isEnemy(i + moveDirection, j + 1, layout)) {
+      movePossibilitiesAux.add([i + moveDirection, j + 1]);
+    }
+
+    if (isEnemy(i + moveDirection, j - 1, layout)) {
+      movePossibilitiesAux.add([i + moveDirection, j - 1]);
+    }
+
+    movePossibilities = movePossibilitiesAux;
+  }
+
+  //If the passed position is a enemy
+  bool isEnemy(int i, int j, List<List<String>> layout) {
+    if (color == "white" && layout[i][j][0] == "b") {
+      return true;
+    } else if (color == "black" && layout[i][j][0] == "w") {
+      return true;
+    }
+
+    return false;
   }
 
   @override
@@ -25,70 +64,6 @@ class Pawn extends StatelessWidget with Piece {
     if ((color == "white" && !isWhitesTurn) ||
         (color == "black" && isWhitesTurn)) {
       return false;
-    }
-
-    List<List<int>> movePossibilities = [];
-
-    //Whites
-    if (color == "white") {
-      if (i1 == 0) {
-        return false;
-      }
-
-      //Define move possibilities
-      isFirstMove
-          ? movePossibilities = [
-              [i1 - 1, j1],
-              [i1 - 2, j1]
-            ]
-          : movePossibilities = [
-              [i1 - 1, j1]
-            ];
-
-      //If has piece barrier
-      layout[movePossibilities[0][0]][movePossibilities[0][1]] != "00"
-          ? movePossibilities = []
-          : {};
-
-      //Can capture
-      if (i1 - 1 >= 0 && j1 - 1 >= 0 && layout[i1 - 1][j1 - 1][0] == "b") {
-        movePossibilities.add([i1 - 1, j1 - 1]);
-      }
-
-      if (i1 - 1 >= 0 && j1 + 1 <= 7 && layout[i1 - 1][j1 + 1][0] == "b") {
-        movePossibilities.add([i1 - 1, j1 + 1]);
-      }
-    }
-
-    //Blacks
-    else {
-      if (i1 == 7) {
-        return false;
-      }
-
-      //Define move possibilities
-      isFirstMove
-          ? movePossibilities = [
-              [i1 + 1, j1],
-              [i1 + 2, j1]
-            ]
-          : movePossibilities = [
-              [i1 + 1, j1]
-            ];
-
-      //If has piece barrier
-      layout[movePossibilities[0][0]][movePossibilities[0][1]] != "00"
-          ? movePossibilities = []
-          : {};
-
-      //Can capture
-      if (i1 + 1 <= 7 && j1 - 1 >= 0 && layout[i1 + 1][j1 - 1][0] == "w") {
-        movePossibilities.add([i1 + 1, j1 - 1]);
-      }
-
-      if (i1 + 1 <= 7 && j1 + 1 <= 7 && layout[i1 + 1][j1 + 1][0] == "w") {
-        movePossibilities.add([i1 + 1, j1 + 1]);
-      }
     }
 
     //Check if is in move possibilities

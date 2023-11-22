@@ -1,4 +1,5 @@
 import 'package:chess/Models/chessboardmodel.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,8 +26,13 @@ class Chessboard extends StatelessWidget {
           //Create the square
           child: Container(
             color: isWhite
-                ? Colors.white
-                : const Color.fromARGB(255, 131, 162, 180),
+                ? (board.possibleMoves
+                        .any((position) => position.equals([i, j]))
+                    ? const Color.fromARGB(255, 173, 142, 130)
+                    : Colors.white)
+                : (board.possibleMoves.any((postion) => postion.equals([i, j]))
+                    ? const Color.fromARGB(255, 165, 112, 93)
+                    : const Color.fromARGB(255, 131, 162, 180)),
             child: Stack(
               children: [
                 //Square index

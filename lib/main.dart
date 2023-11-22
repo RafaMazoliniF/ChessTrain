@@ -21,7 +21,11 @@ class MainApp extends StatelessWidget {
           title: const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.train, size: 35),
+              Icon(
+                Icons.train,
+                size: 35,
+                color: Colors.white,
+              ),
             ],
           ),
         ),

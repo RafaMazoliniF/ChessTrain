@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-abstract mixin class Piece implements Widget {
+// ignore: must_be_immutable
+mixin Piece implements Widget {
   abstract final String color;
+  late List<List<int>> _movePossibilities;
+  List<List<int>> get movePossibilities => _movePossibilities;
+  set movePossibilities(List<List<int>> movePossibilities) {
+    _movePossibilities = movePossibilities;
+  }
+
+  void setMovePossibilites(int i, int j, List<List<String>> layout);
 
   bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout,
       bool isWhitesTurn);

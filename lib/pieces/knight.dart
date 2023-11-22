@@ -3,17 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:collection/collection.dart';
 
+// ignore: must_be_immutable
 class Knight extends StatelessWidget with Piece {
   @override
   final String color;
+  late int i;
+  late int j;
 
-  const Knight({super.key, required this.color});
+  Knight({super.key, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return color == "white"
         ? SvgPicture.asset('assets/pieces/wN.svg')
         : SvgPicture.asset('assets/pieces/bN.svg');
+  }
+
+  @override
+  void setMovePossibilites(int i, int j, List<List<String>> layout) {
+    movePossibilities = [
+      [i + 2, j + 1],
+      [i + 2, j - 1],
+      [i - 2, j + 1],
+      [i - 2, j - 1],
+      [i + 1, j + 2],
+      [i - 1, j + 2],
+      [i + 1, j - 2],
+      [i - 1, j - 2]
+    ];
+
+    // New legal possibilities
+    movePossibilities = movePossibilities
+        .where((possibility) =>
+            isWithinBounds(possibility) && !isFriend(possibility, layout))
+        .toList();
   }
 
   @override
@@ -24,22 +47,7 @@ class Knight extends StatelessWidget with Piece {
       return false;
     }
 
-    List<List<int>> movePossibilities = [
-      [i1 + 2, j1 + 1],
-      [i1 + 2, j1 - 1],
-      [i1 - 2, j1 + 1],
-      [i1 - 2, j1 - 1],
-      [i1 + 1, j1 + 2],
-      [i1 - 1, j1 + 2],
-      [i1 + 1, j1 - 2],
-      [i1 - 1, j1 - 2]
-    ];
-
-    // New legal possibilities
-    movePossibilities = movePossibilities
-        .where((possibility) =>
-            isWithinBounds(possibility) && !isFriend(possibility, layout))
-        .toList();
+    setMovePossibilites(i1, j1, layout);
 
     //Verification
     if (!movePossibilities

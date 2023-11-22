@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:collection/collection.dart';
 
+// ignore: must_be_immutable
 class King extends StatelessWidget with Piece {
   @override
   final String color;
@@ -17,22 +18,16 @@ class King extends StatelessWidget with Piece {
   }
 
   @override
-  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout,
-      bool isWhitesTurn) {
-    if ((color == "white" && !isWhitesTurn) ||
-        (color == "black" && isWhitesTurn)) {
-      return false;
-    }
-
-    List<List<int>> movePossibilities = [
-      [i1 + 1, j1 - 1],
-      [i1 + 1, j1],
-      [i1 + 1, j1 + 1],
-      [i1, j1 - 1],
-      [i1, j1 + 1],
-      [i1 - 1, j1 - 1],
-      [i1 - 1, j1],
-      [i1 - 1, j1 + 1]
+  void setMovePossibilites(int i, int j, List<List<String>> layout) {
+    movePossibilities = [
+      [i + 1, j - 1],
+      [i + 1, j],
+      [i + 1, j + 1],
+      [i, j - 1],
+      [i, j + 1],
+      [i - 1, j - 1],
+      [i - 1, j],
+      [i - 1, j + 1]
     ];
 
     // New legal possibilities
@@ -40,6 +35,15 @@ class King extends StatelessWidget with Piece {
         .where((possibility) =>
             isWithinBounds(possibility) && !isFriend(possibility, layout))
         .toList();
+  }
+
+  @override
+  bool canMove(int i1, int j1, int i2, int j2, List<List<String>> layout,
+      bool isWhitesTurn) {
+    if ((color == "white" && !isWhitesTurn) ||
+        (color == "black" && isWhitesTurn)) {
+      return false;
+    }
 
     //Verification
     if (!movePossibilities

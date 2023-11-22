@@ -4,11 +4,12 @@ import 'package:chess/pieces/rook.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+// ignore: must_be_immutable
 class Queen extends StatelessWidget with Piece {
   @override
   final String color;
-  late Bishop bishop;
-  late Rook rook;
+  late Bishop bishop = Bishop(color: color);
+  late Rook rook = Rook(color: color);
 
   Queen({super.key, required this.color});
 
@@ -20,6 +21,19 @@ class Queen extends StatelessWidget with Piece {
     return color == "white"
         ? SvgPicture.asset('assets/pieces/wQ.svg')
         : SvgPicture.asset('assets/pieces/bQ.svg');
+  }
+
+  @override
+  void setMovePossibilites(int i, int j, List<List<String>> layout) {
+    List<List<int>> movePossibilitiesBishop = [];
+    List<List<int>> movePossibilitiesRook = [];
+
+    bishop.setMovePossibilites(i, j, layout);
+    movePossibilitiesBishop = bishop.movePossibilities;
+    rook.setMovePossibilites(i, j, layout);
+    movePossibilitiesRook = rook.movePossibilities;
+
+    movePossibilities = movePossibilitiesBishop + movePossibilitiesRook;
   }
 
   @override

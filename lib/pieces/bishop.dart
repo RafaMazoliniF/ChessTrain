@@ -22,6 +22,8 @@ class Bishop extends StatelessWidget with Piece {
 
   @override
   void setMovePossibilites(int i, int j, List<List<String>> layout) {
+    color == "white" ? enemy = "b" : enemy = "w";
+
     List<List<int>> movePossibilitiesAux = [];
     for (var row = i + 1, column = j + 1;
         row <= 7 && column <= 7;

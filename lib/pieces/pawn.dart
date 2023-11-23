@@ -35,11 +35,11 @@ class Pawn extends StatelessWidget with Piece {
     }
 
     //Capture enemies
-    if (isEnemy(i + moveDirection, j + 1, layout)) {
+    if (j + 1 <= 7 && isEnemy(i + moveDirection, j + 1, layout)) {
       movePossibilitiesAux.add([i + moveDirection, j + 1]);
     }
 
-    if (isEnemy(i + moveDirection, j - 1, layout)) {
+    if (j - 1 >= 0 && isEnemy(i + moveDirection, j - 1, layout)) {
       movePossibilitiesAux.add([i + moveDirection, j - 1]);
     }
 

@@ -10,6 +10,12 @@ class Chessboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final board = Provider.of<ChessboardModel>(context, listen: true);
 
+    if (board.isGameOver) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showGameOverDialog(context, board);
+      });
+    }
+
     final letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
     List<Widget> squares = [];
 
@@ -75,6 +81,38 @@ class Chessboard extends StatelessWidget {
     return GridView.count(
       crossAxisCount: 8,
       children: squares,
+    );
+  }
+
+  void _showGameOverDialog(BuildContext context, ChessboardModel board) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Center(
+              child: Text(
+            'Fim de jogo',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )),
+          content: SizedBox(
+            height: Checkbox.width,
+            child: Center(
+              child: Text(board.isWhitesTurn
+                  ? "As pretas venceram!"
+                  : "As brancas venceram!"),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                board.resetBoard();
+                Navigator.of(context).pop();
+              },
+              child: const Text('Fechar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

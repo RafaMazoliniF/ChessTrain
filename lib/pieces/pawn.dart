@@ -5,11 +5,13 @@ import 'package:collection/collection.dart';
 
 // ignore: must_be_immutable
 class Pawn extends StatelessWidget with Piece {
+  //Variáveis de classe
   @override
   final String color;
   bool isFirstMove = true;
-  late int moveDirection;
+  late int moveDirection; // 1 para brancas, -1 para pretas
 
+  //Constrtutor do peão
   Pawn({super.key, required this.color});
 
   @override
@@ -23,6 +25,7 @@ class Pawn extends StatelessWidget with Piece {
 
   @override
   void setMovePossibilites(int i, int j, List<List<String>> layout) {
+    //Cria uma lista vazia que será preechida
     List<List<int>> movePossibilitiesAux = [];
 
     //Move to empity squares
